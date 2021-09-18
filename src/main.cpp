@@ -5,6 +5,7 @@
 #include <ESPAsyncWebServer.h>
 #include <ArduinoJson.h>
 
+#define RESETPIN 4
 #define LEDPIN 23
 #define IRPIN 34
 #define TRIGPIN 5
@@ -76,6 +77,7 @@ void setup() {
   initWIFI();
   initSPIFFS();
 
+  pinMode(RESETPIN, INPUT);
   pinMode(LEDPIN, OUTPUT);
   pinMode(IRPIN, OUTPUT);
   pinMode(TRIGPIN, OUTPUT); // Sets the trigPin as an Output
@@ -120,6 +122,10 @@ void loop() {
   }
   else{
     digitalWrite(LEDPIN, LOW);
+  }
+
+  if(digitalRead(RESETPIN) == 0){
+    objcount = 0;
   }
 
   // Clears the trigPin
