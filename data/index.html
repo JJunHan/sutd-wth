@@ -1,0 +1,161 @@
+<!DOCTYPE HTML><html><head>
+<meta name="author" content="Jun Han">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <script>
+    setInterval(function () {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                document.getElementById("Gyro").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.open("GET","/gyro",true);
+        xhttp.send(); // Sends a request and process the response by changing the variable text
+    }, 1000);
+
+    setInterval(function () {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                document.getElementById("Temp").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.open("GET","/temp",true);
+        xhttp.send(); // Sends a request and process the response by changing the variable text
+    }, 1000);
+
+    setInterval(function () {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                document.getElementById("Humidity").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.open("GET","/humidity",true);
+        xhttp.send(); // Sends a request and process the response by changing the variable text
+    }, 1000);
+
+
+</script> -->
+
+<script>
+if (!!window.EventSource) {
+  var source = new EventSource('/events');
+
+  source.addEventListener('open', function(e) {
+    console.log("Events Connected");
+  }, false);
+
+  source.addEventListener('error', function(e) {
+    if (e.target.readyState != EventSource.OPEN) {
+      console.log("Events Disconnected");
+    }
+  }, false);
+
+  source.addEventListener('packageData', function(e) {
+    //console.log("gyro_readings", e.data);
+    var obj = JSON.parse(e.data);
+    document.getElementById("objcount").innerHTML = obj.objectcounter;
+    document.getElementById("depthcm").innerHTML = obj.filldepth;
+  }, false);
+}
+
+</script>
+<style>
+    html {
+      font-family: Arial;
+      display: inline-block;
+      margin: 0px auto;
+      text-align: center;
+    }
+    .output-labels{
+      font-size: 1.2rem;
+      vertical-align:middle;
+      padding-bottom: 15px;
+    }
+    .output-labels2{
+      font-size: 1rem;
+      vertical-align:middle;
+      padding-bottom: 15px;
+      color: red;
+    }
+
+</style>
+</head>
+
+
+<body>
+
+<h2>SUTD</h2>
+
+<h3>Waste management system</h3>
+<!-- <script src="three.min.js"></script> -->
+
+<div>
+    <span class="output-labels">Object Count: </span>
+    <span class="output-labels2" id = "objcount">%objectPlaceholder%</span><br>
+    <span class="output-labels">Ultrasonic Depth Readings: </span>
+    <span class="output-labels2" id = "depthcm">%depthPlaceholder%</span><br>
+    <br>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+<!--https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js-->
+<!--script src="chart.min.js" type="text/javascript"></script-->
+
+<canvas id="myChart" width="400px" height="100px"></canvas>
+<script>
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: '# of people',
+            data: [{x:"14:20", y:20},{x:"15:20", y:25},{x:"15:40", y:15},{x:"12:00", y:23},{x:"17:20", y:35},{x:"18:20", y:28}],
+            fill: false,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+    // options: {
+    //   responsive: true,
+    //     scales: {
+    //         yAxes: [{
+    //             ticks: {
+    //                 beginAtZero: true
+    //             }
+    //         }],
+    //         xAxes:[{
+    //           type:'time',
+    //           time:{
+    //             tooltipFormat: 'DD T'
+    //           }
+    //         }]
+    //     }
+    // }
+});
+</script>
+
+</body></html>
