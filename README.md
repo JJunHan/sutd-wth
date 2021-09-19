@@ -4,5 +4,5 @@ Mr. bin
 
 ## Webserver
 
-[Webserver](images\webserver.jpg)
-[3Dmodel](images\3dmodel.jpg)
+[Webserver](images/webserver.jpg)
+[3Dmodel](images/3dmodel.jpg)
