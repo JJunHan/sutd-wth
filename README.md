@@ -6,5 +6,6 @@ Mr. Bin uses a low cost micro controller to collect and process sensor data usin
 
 ## Webserver
 
+![Demo](images/demo.jpg)
 ![Webserver](images/webserver.jpg)
 ![3Dmodel](images/3dmodel.jpg)
